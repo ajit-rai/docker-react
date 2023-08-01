@@ -1,0 +1,23 @@
+name: Deploy Frontend
+
+on:
+  push:
+    branches: [ "master" ]
+#  pull_request:
+#    branches: [ "master" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+ 
+    - run: docker build . --file Dockerfile.dev --tag ajit-rai/react-test
+    - run: docker run -e CI=true ajit-rai/react-test npm test
+    
+    - name: Generate deployment package
+      run: zip -r deploy.zip . -x '*.git*'
+      
