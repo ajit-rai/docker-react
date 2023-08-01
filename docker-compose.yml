@@ -1,0 +1,25 @@
+version: '3'
+services:
+  react-app: #any naming is fine
+    build:  #dot is for pwd and this will give error as we have a Dockerfile.dev file/ 
+      context: . #specifies source from where files to come from, pwd
+      dockerfile: Dockerfile.dev
+    ports: # we can define port mapping here
+      - "3000:3000"
+    volumes:
+      - /app/node_modules #volume is bookmarked, not to be references, see no :
+      - .:/app # dot (pwd) is mapped with /app
+
+#How to overcome long run command like:
+# docker run -p 3000:3000 -v /app/node_modules -v $(pwd):/app c4bedc63b44b
+
+#we can create a new service for testing only
+  tests:
+    build:
+      context: . 
+      dockerfile: Dockerfile.dev
+   #ports: No need of Ports here 
+    volumes:
+      - /app/node_modules 
+      - .:/app
+    command: ["npm", "rum", "test"] #override standard Dockerfile.dev commmand. 
