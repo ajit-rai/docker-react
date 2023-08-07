@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Second changed we are refreshing React app automatically. We can see it live too. 
+          Changed on feat. 
         </p>
         <a
           className="App-link"
